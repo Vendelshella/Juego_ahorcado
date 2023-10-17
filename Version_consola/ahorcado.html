@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let palabra = "BARCO";
+
+        let intentos = 6;
+        let aciertos = 0;
+        // Dividir las letras de la palabra en un array
+        let arregloPalabra = palabra.split("");
+        // console.log(arregloPalabra);
+
+        console.info("La palabra tiene " + palabra.length + " letras.");
+        console.info("Tienes 6 intentos.");
+        
+        // Referencia visual del numero de letras
+        let arrayPosicion = new Array(palabra.length).fill("_");
+        
+        // Array de letras introducidas no válidas por el usuario
+        const letrasIncorrectas = [];
+        // Array de letras introducidas válidas por el usuario
+        const letrasAcertadas = [];
+
+        do{
+            let letra = prompt("Introduce una letra:");
+            letra = letra.toUpperCase();
+            
+            if(!arregloPalabra.includes(letra)){
+                letrasIncorrectas.push(letra);
+                console.log(`Letras incorrectas: ${letrasIncorrectas.join(" ")}`);
+                // Restar el número de intentos cuando se falla la letra
+                intentos--;
+                console.log("Tienes " + intentos + " intentos.");
+            }else {
+                letrasAcertadas.push(letra);
+                console.log("Sigues teniendo " + intentos + " intentos.");
+            }
+
+            // Inicializar el array posición los aciertos cada vez que da una vuelta
+            arrayPosicion = [];
+            aciertos = 0;
+
+            // Comparar que el arreglo de la palabra tiene letras que coinciden con la letra introducida por el jugador
+
+            for (let i = 0; i < palabra.length; i++) {
+                if (letrasAcertadas.includes(palabra[i])){
+                    arrayPosicion.push(palabra[i]);
+                    aciertos++;
+                }else {
+                    arrayPosicion.push("_");
+                }
+            }
+            console.log(arrayPosicion.join(" "));
+
+            // Mensaje al acabar los intentos
+            if (intentos === 0){
+                console.log("Se acabaron los intentos. La palabra era " + palabra);
+            }
+
+            // Verificar si el jugador ha ganado
+            if (aciertos === palabra.length) {
+                console.log("¡Felicidades! Has adivinado la palabra.");
+                break;
+            }
+            
+        }while(intentos > 0);
+        
+
+    </script>
+</body>
+</html>
